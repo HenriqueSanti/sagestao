@@ -1,0 +1,13 @@
+{
+  "name": "solaura-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard executivo de demonstração — SolAura Energia",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "express": "^4.22.3"
+  }
+}

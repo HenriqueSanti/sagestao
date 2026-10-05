@@ -1,0 +1,15 @@
+/* Estilos próprios do dashboard (o restante vem das classes Tailwind). */
+
+body {
+  font-family: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Mensagens de retorno do formulário */
+.aviso {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+}
+.aviso-ok   { background: #ecfdf5; color: #065f46; }
+.aviso-erro { background: #fef2f2; color: #991b1b; }

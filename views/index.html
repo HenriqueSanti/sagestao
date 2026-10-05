@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SolAura Energia — Painel da Diretoria</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
+  <main class="mx-auto max-w-5xl px-6 py-12">
+
+    <header class="mb-10 flex items-center gap-3">
+      <span class="h-4 w-4 rounded-full bg-amber-400" aria-hidden="true"></span>
+      <div>
+        <h1 class="text-xl font-semibold tracking-tight">SolAura Energia</h1>
+        <p class="text-sm text-slate-500">Painel da Diretoria</p>
+      </div>
+    </header>
+
+    {{aviso}}
+
+    <section class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" aria-label="Indicadores">
+      {{cards}}
+    </section>
+
+    <section class="mt-12 rounded-xl bg-white p-6 ring-1 ring-slate-900/10" aria-labelledby="atualizar">
+      <h2 id="atualizar" class="text-base font-semibold">Atualizar indicador</h2>
+      <form method="POST" action="/kpis/update" class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
+        <label class="flex-1 text-sm text-slate-600">Indicador
+          <select name="id" required
+                  class="mt-1 block w-full rounded-lg border-0 bg-white px-3 py-2 ring-1 ring-slate-300 focus:ring-2 focus:ring-amber-400">
+            {{opcoes}}
+          </select>
+        </label>
+        <label class="flex-1 text-sm text-slate-600">Novo valor
+          <input name="valor" type="text" inputmode="decimal" required placeholder="Ex.: 13,2"
+                 class="mt-1 block w-full rounded-lg border-0 px-3 py-2 ring-1 ring-slate-300 focus:ring-2 focus:ring-amber-400">
+        </label>
+        <button type="submit"
+                class="rounded-lg bg-slate-900 px-5 py-2 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2">
+          Salvar valor
+        </button>
+      </form>
+    </section>
+
+  </main>
+</body>
+</html>

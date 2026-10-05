@@ -1,0 +1,16 @@
+<article class="rounded-xl bg-white p-6 ring-1 ring-slate-900/10">
+  <h2 class="text-sm font-medium text-slate-500">{{metrica}}</h2>
+  <p class="mt-3 text-4xl font-semibold tracking-tight text-slate-900">{{valor}}</p>
+
+  <div class="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-slate-100"
+       role="progressbar" aria-valuenow="{{pct_int}}" aria-valuemin="0" aria-valuemax="100"
+       aria-label="Progresso da meta de {{metrica}}">
+    <div class="h-full rounded-full bg-amber-400" style="width:{{pct}}%"></div>
+  </div>
+  <div class="mt-2 flex justify-between text-xs text-slate-500">
+    <span>{{pct_int}}% da meta</span>
+    <span>Meta: {{meta}}</span>
+  </div>
+
+  <p class="mt-5 text-xs text-slate-400">Atualizado em {{atualizado}}</p>
+</article>
