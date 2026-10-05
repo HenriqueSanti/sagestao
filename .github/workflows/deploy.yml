@@ -14,22 +14,22 @@ jobs:
 
       - name: Sincronizar com a pasta de produção
         run: |
-          mkdir -p /var/www/apps/meu-projeto
+          mkdir -p /var/www/apps/sagestao
           # Copia os arquivos novos sem destruir dados persistentes existentes
-          cp -r . /var/www/apps/meu-projeto/
-          chown -R $USER:$USER /var/www/apps/meu-projeto
+          cp -r . /var/www/apps/sagestao/
+          chown -R $USER:$USER /var/www/apps/sagestao
 
       - name: Instalar dependências e preparar ambiente
         run: |
-          cd /var/www/apps/meu-projeto
+          cd /var/www/apps/sagestao
           npm install --production
           
           # (Opcional) Reiniciar o serviço Systemd da aplicação para assumir o novo código
-          # systemctl restart meu-projeto.service
+          # systemctl restart sagestao.service
 
       - name: Configurar e Iniciar Serviço Systemd Automaticamente
         run: |
-          SERVICE_FILE="/etc/systemd/system/meu-projeto.service"
+          SERVICE_FILE="/etc/systemd/system/sagestao.service"
           
           # Verifica se o arquivo de serviço já existe; se não existir, ele cria automaticamente
           if [ ! -f "$SERVICE_FILE" ]; then
@@ -42,8 +42,8 @@ jobs:
           [Service]
           Type=simple
           User=henrique
-          WorkingDirectory=/var/www/apps/meu-projeto
-          ExecStart=/usr/bin/node /var/www/apps/meu-projeto/index.js
+          WorkingDirectory=/var/www/apps/sagestao
+          ExecStart=/usr/bin/node /var/www/apps/sagestao/index.js
           Restart=always
           Environment=NODE_ENV=production
 
@@ -53,9 +53,9 @@ jobs:
 
             # Recarrega o systemd, habilita e inicia o serviço pela primeira vez
             systemctl daemon-reload
-            systemctl enable meu-projeto.service
-            systemctl start meu-projeto.service
+            systemctl enable sagestao.service
+            systemctl start sagestao.service
           else
             echo "O serviço já existe. Apenas reiniciando para aplicar atualizações..."
-            systemctl restart meu-projeto.service
+            systemctl restart sagestao.service
           fi
