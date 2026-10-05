@@ -14,10 +14,10 @@ jobs:
 
       - name: Sincronizar com a pasta de produção
         run: |
-          sudo mkdir -p /var/www/apps/meu-projeto
+          mkdir -p /var/www/apps/meu-projeto
           # Copia os arquivos novos sem destruir dados persistentes existentes
-          sudo cp -r . /var/www/apps/meu-projeto/
-          sudo chown -R $USER:$USER /var/www/apps/meu-projeto
+          cp -r . /var/www/apps/meu-projeto/
+          chown -R $USER:$USER /var/www/apps/meu-projeto
 
       - name: Instalar dependências e preparar ambiente
         run: |
@@ -25,7 +25,7 @@ jobs:
           npm install --production
           
           # (Opcional) Reiniciar o serviço Systemd da aplicação para assumir o novo código
-          # sudo systemctl restart meu-projeto.service
+          # systemctl restart meu-projeto.service
 
       - name: Configurar e Iniciar Serviço Systemd Automaticamente
         run: |
@@ -34,7 +34,7 @@ jobs:
           # Verifica se o arquivo de serviço já existe; se não existir, ele cria automaticamente
           if [ ! -f "$SERVICE_FILE" ]; then
             echo "Criando o serviço Systemd para o projeto..."
-            sudo bash -c "cat > $SERVICE_FILE" <<EOF
+            bash -c "cat > $SERVICE_FILE" <<EOF
           [Unit]
           Description=Aplicacao Node.js - Meu Projeto
           After=network.target
@@ -52,10 +52,10 @@ jobs:
           EOF
 
             # Recarrega o systemd, habilita e inicia o serviço pela primeira vez
-            sudo systemctl daemon-reload
-            sudo systemctl enable meu-projeto.service
-            sudo systemctl start meu-projeto.service
+            systemctl daemon-reload
+            systemctl enable meu-projeto.service
+            systemctl start meu-projeto.service
           else
             echo "O serviço já existe. Apenas reiniciando para aplicar atualizações..."
-            sudo systemctl restart meu-projeto.service
+            systemctl restart meu-projeto.service
           fi
