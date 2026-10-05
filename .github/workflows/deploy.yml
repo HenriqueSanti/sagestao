@@ -15,9 +15,9 @@ jobs:
       - name: Sincronizar com a pasta de produção
         run: |
           mkdir -p /var/www/apps/sagestao
-          # Copia os arquivos novos sem destruir dados persistentes existentes
-          cp -r . /var/www/apps/sagestao/
-          chown -R $USER:$USER /var/www/apps/sagestao
+          # Sincroniza os ficheiros ignorando a pasta .git e proteções indesejadas
+          rsync -av --exclude '.git' --exclude 'node_modules' ./ /var/www/apps/sagestao/
+          sudo chown -R $USER:$USER /var/www/apps/sagestao
 
       - name: Instalar dependências e preparar ambiente
         run: |
