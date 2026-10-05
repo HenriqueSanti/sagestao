@@ -23,9 +23,6 @@ jobs:
         run: |
           cd /var/www/apps/sagestao
           npm install --production
-          
-          # (Opcional) Reiniciar o serviço Systemd da aplicação para assumir o novo código
-          # systemctl restart sagestao.service
 
       - name: Configurar e Iniciar Serviço Systemd Automaticamente
         run: |
@@ -34,16 +31,16 @@ jobs:
           # Verifica se o arquivo de serviço já existe; se não existir, ele cria automaticamente
           if [ ! -f "$SERVICE_FILE" ]; then
             echo "Criando o serviço Systemd para o projeto..."
-            bash -c "cat > $SERVICE_FILE" <<EOF
+            sudo tee "$SERVICE_FILE" > /dev/null <<EOF
           [Unit]
-          Description=Aplicacao Node.js - Meu Projeto
+          Description=Aplicacao Node.js - Sagestao
           After=network.target
 
           [Service]
           Type=simple
           User=henrique
           WorkingDirectory=/var/www/apps/sagestao
-          ExecStart=/usr/bin/node /var/www/apps/sagestao/index.js
+          ExecStart=/usr/bin/node /var/www/apps/sagestao/server.js
           Restart=always
           Environment=NODE_ENV=production
 
@@ -51,11 +48,11 @@ jobs:
           WantedBy=multi-user.target
           EOF
 
-            # Recarrega o systemd, habilita e inicia o serviço pela primeira vez
-            systemctl daemon-reload
-            systemctl enable sagestao.service
-            systemctl start sagestao.service
+          # Recarrega o systemd, habilita e inicia o serviço pela primeira vez
+            sudo systemctl daemon-reload
+            sudo systemctl enable sagestao.service
+            sudo systemctl start sagestao.service
           else
             echo "O serviço já existe. Apenas reiniciando para aplicar atualizações..."
-            systemctl restart sagestao.service
+            sudo systemctl restart sagestao.service
           fi
