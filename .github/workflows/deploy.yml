@@ -15,7 +15,6 @@ jobs:
       - name: Sincronizar com a pasta de produção
         run: |
           mkdir -p /var/www/apps/sagestao
-          # Sincroniza os ficheiros ignorando a pasta .git e proteções indesejadas
           rsync -av --exclude '.git' --exclude 'node_modules' ./ /var/www/apps/sagestao/
           sudo chown -R $USER:$USER /var/www/apps/sagestao
 
@@ -28,7 +27,6 @@ jobs:
         run: |
           SERVICE_FILE="/etc/systemd/system/sagestao.service"
           
-          # Verifica se o arquivo de serviço já existe; se não existir, ele cria automaticamente
           if [ ! -f "$SERVICE_FILE" ]; then
             echo "Criando o serviço Systemd para o projeto..."
             sudo tee "$SERVICE_FILE" > /dev/null <<EOF
@@ -48,7 +46,6 @@ jobs:
           WantedBy=multi-user.target
           EOF
 
-          # Recarrega o systemd, habilita e inicia o serviço pela primeira vez
             sudo systemctl daemon-reload
             sudo systemctl enable sagestao.service
             sudo systemctl start sagestao.service
