@@ -148,4 +148,4 @@ app.post('/kpis/update', (req, res) => {
   res.redirect(info.changes ? '/?ok=1' : '/?erro=1');
 });
 
-app.listen(PORT, () => console.log(`SolAura Dashboard em http://localhost:${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`SolAura Dashboard em http://localhost:${PORT}`));
